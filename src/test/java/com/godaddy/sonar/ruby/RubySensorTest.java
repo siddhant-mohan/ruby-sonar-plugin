@@ -102,7 +102,10 @@ public class RubySensorTest {
     inputFiles.add(difFile);
 
     expect(sensorContext.saveMeasure(isA(InputFile.class), isA(Metric.class), isA(Double.class))).andReturn(measure).times(4);
-    expect(sensorContext.saveMeasure(isA(Resource.class), isA(Metric.class), isA(Double.class))).andReturn(measure).times(1);
+  
+    // FIXME: removed due to PACKAGES core metric deprecation
+    // expect(sensorContext.saveMeasure(isA(Resource.class), isA(Metric.class), isA(Double.class))).andReturn(measure).times(1);
+    
     expect(fs.predicates()).andReturn(filePredicates).times(1);
     expect(filePredicates.hasLanguage(eq("ruby"))).andReturn(filePredicate).times(1);
     expect(fs.inputFiles(isA(FilePredicate.class))).andReturn((Iterable<InputFile>) inputFiles).times(1);

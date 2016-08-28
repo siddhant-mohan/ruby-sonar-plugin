@@ -80,10 +80,12 @@ public class RubySensor implements Sensor
         IOUtils.closeQuietly(reader);
       }
     }
-    for (RubyPackage pack : packageList)
-    {
-      sensorContext.saveMeasure(pack, CoreMetrics.PACKAGES, 1.0);
-    }
+    
+    // FIXME: removed due to PACKAGES core metric deprecation
+    // for (RubyPackage pack : packageList)
+    // {
+    //   sensorContext.saveMeasure(pack, CoreMetrics.PACKAGES, 1.0);
+    // }
   }
 
   @Override
