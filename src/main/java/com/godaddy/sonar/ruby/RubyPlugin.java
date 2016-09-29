@@ -43,19 +43,20 @@ public final class RubyPlugin extends SonarPlugin
   public static final String SIMPLECOVRCOV_REPORT_PATH_PROPERTY  = "sonar.simplecovrcov.reportPath";
   public static final String METRICFU_REPORT_PATH_PROPERTY       = "sonar.metricfu.reportPath";
   public static final String METRICFU_COMPLEXITY_METRIC_PROPERTY = "sonar.metricfu.complexityMetric";
-
+  
   public List<Object> getExtensions()
   {
     List<Object> extensions = new ArrayList<Object>();
     extensions.add(Ruby.class);
-    extensions.add(RubyCPDMapping.class);
+    // FIXME add back code duplication metrics once it's fixed
+    // extensions.add(RubyCPDMapping.class);
     extensions.add(SimpleCovRcovSensor.class);
     extensions.add(SimpleCovRcovJsonParserImpl.class);
     extensions.add(MetricfuYamlParser.class);
     extensions.add(RubySourceCodeColorizer.class);
     extensions.add(RubySensor.class);
     extensions.add(MetricfuComplexitySensor.class);
-    extensions.add(MetricfuDuplicationSensor.class);
+    // extensions.add(MetricfuDuplicationSensor.class);
     extensions.add(MetricfuIssueSensor.class);
     extensions.add(CaneRulesDefinition.class);
     extensions.add(ReekRulesDefinition.class);

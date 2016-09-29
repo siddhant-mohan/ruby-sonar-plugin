@@ -13,8 +13,8 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.Project;
-import org.sonar.squid.measures.Metric;
-import org.sonar.squid.text.Source;
+import org.sonar.squidbridge.measures.Metric;
+import org.sonar.squidbridge.text.Source;
 
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.godaddy.sonar.ruby.core.RubyRecognizer;

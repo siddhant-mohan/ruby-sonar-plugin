@@ -13,7 +13,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.buildVersion>5.4</sonar.buildVersion>
+		<sonar.buildVersion>5.5</sonar.buildVersion>
+        <!--FIXME: update batch version to build version once available-->
+        <sonar.sonarBatchVersion>5.4</sonar.sonarBatchVersion>
 		<jdk.min.version>1.6</jdk.min.version>
 		<jacoco-maven-version>0.7.4.201502262128</jacoco-maven-version>
 	</properties>
@@ -34,13 +36,49 @@
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-batch</artifactId>
-			<version>${sonar.buildVersion}</version>
+			<version>${sonar.sonarBatchVersion}</version>
+            <!--FIXME: using exclusion pattens to resolve this https://groups.google.com/forum/#!msg/sonarqube/R8jk9MK9bGI/gOn5uhk9GgAJ-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jruby</groupId>
 			<artifactId>jruby-complete</artifactId>
 			<version>1.7.20</version>
 		</dependency>
+        <dependency>
+            <groupId>org.sonarsource.sslr-squid-bridge</groupId>
+            <artifactId>sslr-squid-bridge</artifactId>
+            <version>2.6.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.sonar</groupId>
+                    <artifactId>sonar-plugin-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
 		<!-- unit tests -->
 		<dependency>
@@ -48,6 +86,12 @@
 			<artifactId>sonar-testing-harness</artifactId>
 			<version>${sonar.buildVersion}</version>
 			<scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -98,6 +142,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<pluginClass>com.godaddy.sonar.ruby.RubyPlugin</pluginClass>
+                    <useChildFirstClassLoader>false</useChildFirstClassLoader>
 				</configuration>
 			</plugin>
 			<plugin>

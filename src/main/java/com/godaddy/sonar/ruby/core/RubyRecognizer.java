@@ -1,6 +1,6 @@
 package com.godaddy.sonar.ruby.core;
 
-import org.sonar.squid.recognizer.CodeRecognizer;
+import org.sonar.squidbridge.recognizer.CodeRecognizer;
 
 public class RubyRecognizer extends CodeRecognizer
 {

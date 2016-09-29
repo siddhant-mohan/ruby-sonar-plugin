@@ -22,6 +22,7 @@ public class RubyPluginTest {
 
 	@Test
 	public void testGetExtensions() {
+		// FIXME add back code duplication metrics once it's fixed
 		RubyPlugin plugin = new RubyPlugin();
 		List<Object> extensions = plugin.getExtensions();
 		assertTrue(extensions.size() > 0);
@@ -32,7 +33,7 @@ public class RubyPluginTest {
 		assertTrue(extensions.contains(RubySensor.class));
 		assertTrue(extensions.contains(MetricfuComplexitySensor.class));
         assertTrue(extensions.contains(SonarWayProfile.class));
-        assertTrue(extensions.contains(MetricfuDuplicationSensor.class));
+        // assertTrue(extensions.contains(MetricfuDuplicationSensor.class));
         assertTrue(extensions.contains(MetricfuIssueSensor.class));
         assertTrue(extensions.contains(CaneRulesDefinition.class));
         assertTrue(extensions.contains(ReekRulesDefinition.class));

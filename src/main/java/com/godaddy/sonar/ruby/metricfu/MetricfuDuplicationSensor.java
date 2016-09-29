@@ -8,7 +8,7 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.sensor.duplication.NewDuplication;
+import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
 
 import org.sonar.api.resources.Project;
 
@@ -155,13 +155,19 @@ public class MetricfuDuplicationSensor implements Sensor
 
 	    for (InputFile inputFile : inputFiles) {
 	        if (inputFile.lines() > 2) {
-    	        NewDuplication nd = sensorContext.newDuplication();
-    	        nd.originBlock(inputFile, 1, inputFile.lines() / 2 - 1);
-    	        LOG.info("originBlock {} 1:{}", inputFile.relativePath(), inputFile.lines() / 2 - 1);
-    	        nd.isDuplicatedBy(inputFile, inputFile.lines() / 2, inputFile.lines() - 1);
-    	        String s = Integer.toString(inputFile.lines() / 2);
-    	        String e = Integer.toString(inputFile.lines() - 1);
-    	        LOG.info("isDuplicatedBy " + inputFile.relativePath() + " : " + s + " : " + e);
+				
+				// FIXME: add duplication support once out of beta
+                NewCpdTokens nd = sensorContext.newCpdTokens();
+				
+				nd.onFile(inputFile);
+				// nd.addToken(inputFile.newRange(0, 0, inputFile.lines(), 0));
+    	        // nd.originBlock(inputFile, 1, inputFile.lines() / 2 - 1);
+    	        // LOG.info("originBlock {} 1:{}", inputFile.relativePath(), inputFile.lines() / 2 - 1);
+    	        // nd.isDuplicatedBy(inputFile, inputFile.lines() / 2, inputFile.lines() - 1);
+    	        // String s = Integer.toString(inputFile.lines() / 2);
+    	        // String e = Integer.toString(inputFile.lines() - 1);
+    	        // LOG.info("isDuplicatedBy " + inputFile.relativePath() + " : " + s + " : " + e);
+                //
     	        nd.save();
 	        }
 	    }

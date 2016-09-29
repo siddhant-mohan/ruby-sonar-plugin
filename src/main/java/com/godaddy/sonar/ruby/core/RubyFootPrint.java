@@ -1,9 +1,9 @@
 package com.godaddy.sonar.ruby.core;
 
-import org.sonar.squid.recognizer.Detector;
-import org.sonar.squid.recognizer.EndWithDetector;
-import org.sonar.squid.recognizer.KeywordsDetector;
-import org.sonar.squid.recognizer.LanguageFootprint;
+import org.sonar.squidbridge.recognizer.Detector;
+import org.sonar.squidbridge.recognizer.EndWithDetector;
+import org.sonar.squidbridge.recognizer.KeywordsDetector;
+import org.sonar.squidbridge.recognizer.LanguageFootprint;
 
 import java.util.HashSet;
 import java.util.Set;

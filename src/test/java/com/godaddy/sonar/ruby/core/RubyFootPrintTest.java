@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Set;
 
 import org.junit.Test;
-import org.sonar.squid.recognizer.Detector;
+import org.sonar.squidbridge.recognizer.Detector;
 
 public class RubyFootPrintTest {
 	@Test
