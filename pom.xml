@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.buildVersion>5.1</sonar.buildVersion>
+		<sonar.buildVersion>5.4</sonar.buildVersion>
 		<jdk.min.version>1.6</jdk.min.version>
 		<jacoco-maven-version>0.7.4.201502262128</jacoco-maven-version>
 	</properties>
@@ -26,19 +26,25 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.sonar</groupId>
+			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api</artifactId>
+			<version>${sonar.buildVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-batch</artifactId>
 			<version>${sonar.buildVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.sonar</groupId>
-			<artifactId>sonar-batch</artifactId>
-			<version>${sonar.buildVersion}</version>
+			<groupId>org.jruby</groupId>
+			<artifactId>jruby-complete</artifactId>
+			<version>1.7.20</version>
 		</dependency>
 
 		<!-- unit tests -->
 		<dependency>
-			<groupId>org.codehaus.sonar</groupId>
+			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-testing-harness</artifactId>
 			<version>${sonar.buildVersion}</version>
 			<scope>test</scope>
@@ -54,11 +60,6 @@
 			<artifactId>easymock</artifactId>
 			<version>3.3.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
 		</dependency>
 
 		<dependency>
@@ -77,11 +78,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-configuration</groupId>
 			<artifactId>commons-configuration</artifactId>
 			<version>1.9</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
@@ -89,9 +92,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.sonar</groupId>
+				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
 				<artifactId>sonar-packaging-maven-plugin</artifactId>
-				<version>1.7</version>
+				<version>1.17</version>
 				<extensions>true</extensions>
 				<configuration>
 					<pluginClass>com.godaddy.sonar.ruby.RubyPlugin</pluginClass>

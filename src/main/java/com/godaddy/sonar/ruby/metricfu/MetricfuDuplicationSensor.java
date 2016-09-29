@@ -9,6 +9,7 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.duplication.NewDuplication;
+
 import org.sonar.api.resources.Project;
 
 import com.godaddy.sonar.ruby.core.Ruby;
