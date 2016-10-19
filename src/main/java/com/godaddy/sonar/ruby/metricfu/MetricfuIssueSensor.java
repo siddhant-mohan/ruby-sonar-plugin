@@ -3,8 +3,6 @@ package com.godaddy.sonar.ruby.metricfu;
 import java.io.IOException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
@@ -21,10 +19,12 @@ import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.godaddy.sonar.ruby.metricfu.RoodiProblem.RoodiCheck;
 import com.google.common.collect.Lists;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class MetricfuIssueSensor implements Sensor
 {
-    private static final Logger LOG = LoggerFactory.getLogger(MetricfuIssueSensor.class);
+    private static final Logger LOG = Loggers.get(MetricfuIssueSensor.class);
 
     private static final Integer NO_LINE_NUMBER = -1;
 

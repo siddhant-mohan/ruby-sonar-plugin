@@ -2,10 +2,9 @@ package com.godaddy.sonar.ruby.metricfu;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.config.Settings;
@@ -18,10 +17,12 @@ import org.sonar.api.resources.Project;
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.collect.Lists;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class MetricfuComplexitySensor implements Sensor
 {
-    private static final Logger LOG = LoggerFactory.getLogger(MetricfuComplexitySensor.class);
+    private static final Logger LOG = Loggers.get(MetricfuComplexitySensor.class);
 
     private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = { 0, 5, 10, 20, 30, 60, 90 };
     private static final Number[] FUNCTIONS_DISTRIB_BOTTOM_LIMITS = { 1, 2, 4, 6, 8, 10, 12, 20, 30 };
@@ -50,8 +51,9 @@ public class MetricfuComplexitySensor implements Sensor
             complexityType = COMPLEXITY_SAIKURO;
         }
         LOG.info("MetricfuComplexitySensor: using " + complexityType + " complexity.");
-
-        List<InputFile> sourceFiles = Lists.newArrayList(fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Ruby.KEY)));
+    
+        FilePredicate predicate = fileSystem.predicates().hasLanguage(Ruby.KEY);
+        List<InputFile> sourceFiles = Lists.newArrayList(fileSystem.inputFiles(predicate));
         for (InputFile inputFile : sourceFiles) {
             LOG.debug("Analyzing functions for classes in the file: " + inputFile.file().getName());
             analyzeFile(inputFile, context, complexityType);

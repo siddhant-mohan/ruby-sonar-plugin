@@ -9,13 +9,10 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.config.PropertyDefinitions;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoverageMeasuresBuilder;
@@ -25,10 +22,12 @@ import org.sonar.api.scan.filesystem.PathResolver;
 
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.google.common.collect.Lists;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class SimpleCovRcovSensor implements Sensor
 {
-  private static final Logger     LOG = LoggerFactory.getLogger(SimpleCovRcovSensor.class);
+  private static final Logger LOG = Loggers.get(SimpleCovRcovSensor.class);
 
   private SimpleCovRcovJsonParser simpleCovRcovJsonParser;
   private Settings                settings;

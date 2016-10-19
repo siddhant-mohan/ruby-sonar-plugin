@@ -8,16 +8,15 @@ import org.apache.commons.io.FileUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoverageMeasuresBuilder;
 
-import com.godaddy.sonar.ruby.simplecovrcov.SimpleCovRcovJsonParser;
 import com.google.common.collect.Maps;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class SimpleCovRcovJsonParserImpl implements SimpleCovRcovJsonParser
 {
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleCovRcovJsonParserImpl.class);
+    private static final Logger LOG = Loggers.get(SimpleCovRcovJsonParserImpl.class);
 
     public Map<String, CoverageMeasuresBuilder> parse(File file) throws IOException
     {

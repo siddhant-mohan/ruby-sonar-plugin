@@ -2,8 +2,6 @@ package com.godaddy.sonar.ruby.metricfu;
 
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
@@ -14,10 +12,12 @@ import org.sonar.api.resources.Project;
 
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.collect.Lists;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class MetricfuDuplicationSensor implements Sensor
 {
-    private static final Logger LOG = LoggerFactory.getLogger(MetricfuDuplicationSensor.class);
+    private static final Logger LOG = Loggers.get(MetricfuDuplicationSensor.class);
     private FileSystem fileSystem;
 	private MetricfuYamlParser metricfuYamlParser;
 
