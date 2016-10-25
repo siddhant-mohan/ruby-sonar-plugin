@@ -157,4 +157,69 @@ public class MetricfuYamlParserTest {
                 is(equalTo("Api::V2::HostsController#action_permission")));
         assertThat(saikuroClassComplexities.get(2).getMethods().get(0).getLines(), is(equalTo(19)));
     }
+    
+    @Test
+    public void shouldParseAndReturnRoodiDesignProblems() throws Exception {
+        
+        // initialize parser and request the roodi design problems
+        MetricfuYamlParser parser = new MetricfuYamlParser(settings, fs, YML_SYNTAX_FILE_NAME);
+        List<RoodiProblem> roodiDesignProblems =
+                parser.parseRoodi("app/controllers/concerns/deep_link_redirector.rb");
+        
+        // verify parser returns all of the problems
+        assertThat("expect roodi not null", roodiDesignProblems, notNullValue());
+        assertThat("expect roodi finds 3 results", roodiDesignProblems.size(), is(equalTo(3)));
+        
+        // verify roodi parser sets the correct data
+        assertThat(roodiDesignProblems.get(0).getFile(), is(equalTo("app/controllers/concerns/deep_link_redirector.rb")));
+        assertThat(roodiDesignProblems.get(0).getLine(), is(equalTo(32)));
+        assertThat(roodiDesignProblems.get(0).getProblem(), is(equalTo("Case statement is missing an else clause.")));
+    }
+    
+    @Test
+    public void shouldParseAndReturnReekSmells() throws Exception {
+    
+        // initialize parser and request the reek smells
+        MetricfuYamlParser parser = new MetricfuYamlParser(settings, fs, YML_SYNTAX_FILE_NAME);
+        List<ReekSmell> reekSmells =
+                parser.parseReek("app/controllers/about_controller.rb");
+        
+        // verify parser return all file smells
+        assertThat("expect reek return not null", reekSmells, is(notNullValue()));
+        assertThat("expect reek return 2 results", reekSmells.size(), is(equalTo(2)));
+        
+        // verify parser sets all the correct information
+        assertThat(reekSmells.get(0).getFile(), is(equalTo("app/controllers/about_controller.rb")));
+        assertThat(reekSmells.get(0).getMessage(), is(equalTo("has no descriptive comment")));
+        assertThat(reekSmells.get(0).getMethod(), is(equalTo("AboutController")));
+        assertThat(reekSmells.get(0).getType(), is(equalTo("IrresponsibleModule")));
+    }
+    
+    @Test
+    public void shouldParseAndReturnFlayReasons() throws Exception {
+    
+        // initialize parser and request the flay reasons
+        MetricfuYamlParser parser = new MetricfuYamlParser(settings, fs, YML_SYNTAX_FILE_NAME);
+        List<FlayReason> flayReasons = parser.parseFlay();
+        
+        // verify flay returns correct number of reasons
+        assertThat("expect flay reasons not null", flayReasons, is(notNullValue()));
+        assertThat("expect to find 217 flay reasons", flayReasons.size(), is(equalTo(217)));
+        
+        // verify flay parses correct reason
+        assertThat("expect flay reason to have correct name",
+                flayReasons.get(1).getReason(), is(equalTo("2) IDENTICAL code found in :defn (mass*2 = 440)")));
+        
+        // verify flay matches correspond to the reason
+        for(FlayReason.Match match : flayReasons.get(1).getMatches()) {
+            
+            // verify match set the correct file name and lines parameters
+            assertThat("expect the flay reason to get correct match filenames", match.getFile(), anyOf(
+                    equalTo("app/controllers/api/v1/statistics_controller.rb"),
+                    equalTo("app/controllers/api/v2/statistics_controller.rb")));
+            
+            assertThat("expect flay reason matches to have correct start line", match.getStartLine(), is(equalTo(6)));
+            assertThat("expect flay reason matches to have correct number of lines", match.getLines(), is(equalTo(1)));
+        }
+    }
 }

@@ -272,7 +272,6 @@ public class MetricfuYamlParser {
      * @param filename the filename to collect the problems for
      * @return list of roodi problems corresponding to the given file
      */
-	@SuppressWarnings("unchecked")
 	public List<RoodiProblem> parseRoodi(String filename) {
         
         // initialize the output roodi problems list
@@ -317,88 +316,139 @@ public class MetricfuYamlParser {
         //return the output roodi problems list
         return problems;
 	}
-
-	@SuppressWarnings("unchecked")
+	
+	/**
+	 * Parse metricfu reek smell results and return a list of reek
+	 * smells corresponding to a given project filename
+	 * @param filename filename to search results for
+	 * @return list of reek smells corresponding to the given file
+	 */
 	public List<ReekSmell> parseReek(String filename) {
-        List<ReekSmell> smells = new ArrayList<ReekSmell>();
+		
+        // initialize the reek smells output list
+        List<ReekSmell> smells = new ArrayList<>();
+		
+		// verify the metricfu results have been parsed
         if (metricfuResult == null) {
             LOG.warn("No metricfu results for reek.");
-        } else {
-    		if (reekFiles == null) {
-    			Map<String, Object> reek = (Map<String, Object>) metricfuResult.get(":reek");
-    			if (reek != null) {
-    			    reekFiles = (ArrayList<Map<String, Object>>) reek.get(":matches");
-    			}
-    		}
-
-    		if (reekFiles != null) {
-
-    			for (Map<String, Object> resultFile : reekFiles) {
-    				String file = safeString((String) resultFile.get(":file_path"));
-
-    				if (filename.equals(file)) {
-    					ArrayList<Map<String, Object>> resultSmells = (ArrayList<Map<String, Object>>) resultFile.get(":code_smells");
-
-    					for (Map<String, Object> resultSmell : resultSmells) {
-    						ReekSmell smell = new ReekSmell();
-    						smell.setFile(file);
-    						smell.setMethod(safeString((String)resultSmell.get(":method")));
-    						smell.setMessage(safeString((String)resultSmell.get(":message")));
-    						smell.setType(safeString((String)resultSmell.get(":type")));
-    						smells.add(smell);
-    					}
-    					break;
-    				}
-    			}
-    		}
+			return smells;
         }
+        
+        // load the reek smells from the metricfu results if needed
+		if (reekFiles == null) {
+			Map<String, Object> reek = (Map<String, Object>) metricfuResult.get(":reek");
+			if (reek != null) {
+				reekFiles = (ArrayList<Map<String, Object>>) reek.get(":matches");
+			}
+		}
+
+		// if reek results exist and are loaded,
+		// parse and save corresponding results
+		if (reekFiles != null) {
+
+			// iterate source files smell results and parse
+			// the ones corresponding to the requested file
+			for (Map<String, Object> resultFile : reekFiles) {
+				String file = safeString((String) resultFile.get(":file_path"));
+				if (filename.equals(file)) {
+					
+					// fetch and iterate the reek code smells for the requested file
+					ArrayList<Map<String, Object>> resultSmells =
+							(ArrayList<Map<String, Object>>) resultFile.get(":code_smells");
+					for (Map<String, Object> resultSmell : resultSmells) {
+						
+						// create a new reek smell object and set the reek results
+						// TODO: check if it's needed to add the lines result as well, if could be also added to the Sensor
+						ReekSmell smell = new ReekSmell();
+						smell.setFile(file);
+						smell.setMethod(safeString((String)resultSmell.get(":method")));
+						smell.setMessage(safeString((String)resultSmell.get(":message")));
+						smell.setType(safeString((String)resultSmell.get(":type")));
+						
+						// add the new smell to the output list
+						smells.add(smell);
+					}
+					break;
+				}
+			}
+		}
+        
+		// return the reek smells output list for the requested file
 		return smells;
 	}
-
-	@SuppressWarnings("unchecked")
+	
+	/**
+	 * Parse metricfu flay reasons and return a list of
+	 * all of the reasons with their matches
+	 * @return list of flay reasons which includes their matches
+	 */
 	public List<FlayReason> parseFlay() {
-        List<FlayReason> reasons = new ArrayList<FlayReason>();
+		
+        // initialize the flay reasons output list
+        List<FlayReason> reasons = new ArrayList<>();
+		
+		// verify the metricfu results have been parsed
         if (metricfuResult == null) {
             LOG.warn("No metricfu results for flay.");
-        } else {
-    		if (flayReasons == null) {
-    			Map<String, Object> flay = (Map<String, Object>) metricfuResult.get(":flay");
-    			if (flay != null) {
-    			    flayReasons = (ArrayList<Map<String, Object>>) flay.get(":matches");
-    			}
-    		}
-
-    		if (flayReasons != null) {
-
-    			for (Map<String, Object> resultReason : flayReasons) {
-    				FlayReason reason = new FlayReason();
-    				reason.setReason(safeString((String) resultReason.get(":reason")));
-
-    				ArrayList<Map<String, Object>> resultMatches = (ArrayList<Map<String, Object>>) resultReason.get(":matches");
-    				for (Map<String, Object> resultDuplication : resultMatches) {
-    					Match match = reason.new Match((String)resultDuplication.get(":name"));
-
-    					// If flay was run with --diff, we should have the number of lines in the duplication. If not, make it 1.
-    					Integer line = safeInteger((String)resultDuplication.get(":line"));
-    					if (line > 0) {
-    						match.setStartLine(line);
-    						match.setLines(1);
-    					} else {
-    						Integer start = safeInteger((String)resultDuplication.get(":start"));
-    						if (start > 0) {
-    							match.setStartLine(start);
-    						}
-    						Integer lines = safeInteger((String)resultDuplication.get(":lines"));
-    						if (lines > 0) {
-    							match.setLines(lines);
-    						}
-    					}
-    					reason.getMatches().add(match);
-    				}
-    				reasons.add(reason);
-    			}
-    		}
+			return reasons;
         }
+        
+        // parse and load the flay reasons from the metricfu results if needed
+		if (flayReasons == null) {
+			Map<String, Object> flay = (Map<String, Object>) metricfuResult.get(":flay");
+			if (flay != null) {
+				flayReasons = (ArrayList<Map<String, Object>>) flay.get(":matches");
+			}
+		}
+
+		// if flay reasons exist and parsed, load and save the reasons
+		if (flayReasons != null) {
+
+			// iterate the flay reasons and save them
+			for (Map<String, Object> resultReason : flayReasons) {
+				
+				// create new flay reason and set it's reason result
+                // TODO: might need to remove reason number and score from reason string(check result format)
+				FlayReason reason = new FlayReason();
+				reason.setReason(safeString((String) resultReason.get(":reason")));
+
+				// iterate the reason matches and save them into it
+				ArrayList<Map<String, Object>> resultMatches =
+						(ArrayList<Map<String, Object>>) resultReason.get(":matches");
+				for (Map<String, Object> resultDuplication : resultMatches) {
+					
+					// create a new reason match and set it's data
+					Match match = reason.new Match((String)resultDuplication.get(":name"));
+
+					// If flay was run with --diff, we should have the number
+					// of lines in the duplication. If not, make it 1.
+					Integer line = safeInteger((String)resultDuplication.get(":line"));
+					if (line > 0) {
+						match.setStartLine(line);
+						match.setLines(1);
+					}
+					else
+					{
+						Integer start = safeInteger((String)resultDuplication.get(":start"));
+						if (start > 0) {
+							match.setStartLine(start);
+						}
+						Integer lines = safeInteger((String)resultDuplication.get(":lines"));
+						if (lines > 0) {
+							match.setLines(lines);
+						}
+					}
+					
+					// save the match into the flay reason
+					reason.getMatches().add(match);
+				}
+				
+				// save the new reason
+				reasons.add(reason);
+			}
+		}
+        
+		// return the flay reasons output list
 		return reasons;
 	}
 
