@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
