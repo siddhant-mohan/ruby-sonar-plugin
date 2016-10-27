@@ -4,14 +4,21 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.godaddy.sonar.ruby.RubyPlugin;
+import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.base.Charsets;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.batch.fs.*;
 import org.sonar.api.batch.fs.internal.*;
+import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
@@ -95,6 +102,38 @@ public class MetricfuComplexitySensorTest
 	}
 	
 	@Test
+	public void shouldInitializeConstructor()
+	{
+		assertThat(metricfuComplexitySensor, is(notNullValue()));
+	}
+	
+	@Test
+	public void shouldUseDefaultReportType() throws Exception {
+		
+		// set a bad report data analysis and run the sensor
+		// to verify default(saikuro) report is used
+		context.settings().setProperty(RubyPlugin.METRICFU_COMPLEXITY_METRIC_PROPERTY, "non-existent report type");
+		metricfuComplexitySensor.execute(context);
+		
+		// assert that the default report type was logged in
+		assertThat(logTester.logs(), allOf(
+				hasItem(containsString("forcing complexity to saikuro.")),
+				hasItem(containsString("MetricfuComplexitySensor: using saikuro complexity."))));
+	}
+	
+	@Test
+	public void shouldHaveCorrectDescription() throws Exception {
+		
+		// initialize and set a complexity sensor descriptor
+		DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
+		metricfuComplexitySensor.describe(descriptor);
+		
+		// verify correct parameters were set for sensor
+		assertThat(descriptor.languages(), everyItem(is(equalTo(Ruby.KEY))));
+		assertThat(descriptor.name(), is(equalTo("MetricfuComplexitySensor")));
+	}
+	
+	@Test
 	public void shouldAnalyzeAndSetCorrectSaikuroFunctionComplexity() throws Exception {
 		
 		// set saikuro report data analysis and run the sensor to collect the data
@@ -108,34 +147,69 @@ public class MetricfuComplexitySensorTest
 	}
 	
 	@Test
-	@Ignore
-	public void testConstructor()
-	{
-		assertNotNull(metricfuComplexitySensor);
+	public void shouldAnalyzeAndSetCorrectSaikuroDistributionComplexities() throws Exception {
+		
+		// set saikuro report data analysis and run the sensor to collect the data
+		context.settings().setProperty(RubyPlugin.METRICFU_COMPLEXITY_METRIC_PROPERTY, "saikuro");
+		metricfuComplexitySensor.execute(context);
+		
+		// map the function complexity distribution results to
+		// boolean values corresponding to non-zero values
+		// and verify not all values are zero(evaluated distribution)
+		List<Boolean> functionComplexityDistribution =
+				Arrays.stream(context.measure(FILE1_KEY, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION)
+						.value().split(";"))
+						.map(measure -> Integer.parseInt(measure.split("=")[1]) > 0)
+						.collect(Collectors.toList());
+		assertThat("expect function complexity distribution calculated", functionComplexityDistribution, hasItem(true));
+		
+		// map the file complexity distribution results to
+		// boolean values corresponding to non-zero values
+		// and verify not all values are zero(evaluated distribution)
+		List<Boolean> fileComplexityDistribution =
+				Arrays.stream(context.measure(FILE1_KEY, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION)
+						.value().split(";"))
+						.map(measure -> Integer.parseInt(measure.split("=")[1]) > 0)
+						.collect(Collectors.toList());
+		assertThat("expect file complexity distribution calculated", fileComplexityDistribution, hasItem(true));
 	}
-
-	// @Test
-	// @Ignore
-	// public void analyseShouldNotFailWithCorrectParameters() throws IOException
-	// {
-	// 	// initialize file list return value
-	// 	List<InputFile> sourceFiles= new ArrayList<InputFile>();
-	// 	DefaultInputFile testFile = new DefaultInputFile("test project", "lib/some_path/foo_bar.rb");
-	//
-	// 	// set the file module path to the local working directory in order
-	// 	// to use file().getName() method and add file to the list
-	// 	Path modulePath = FileSystems.getDefault().getPath(".");
-	// 	testFile.setModuleBaseDir(modulePath);
-	// 	sourceFiles.add(testFile);
-	//
-	// 	// create a file system predicate factory and set the predicates method as well as the input files method
-	// 	FilePredicates predicates = new DefaultFileSystem(new File("src")).predicates();
-	// 	expect(fs.predicates()).andReturn(predicates);
-	// 	expect(fs.inputFiles(EasyMock.isA(FilePredicate.class))).andReturn(sourceFiles);
-	//
-	// 	// replay the file system and run the analysis
-	// 	EasyMock.replay(fs);
-  	// 	metricfuComplexitySensor.analyse(project, sensorContext);
-	// 	EasyMock.verify();
-	// }
+	
+	@Test
+	public void shouldAnalyzeAndSetCorrectCaneFunctionComplexity() throws Exception {
+		
+		// set cane report data analysis and run the sensor to collect the data
+		context.settings().setProperty(RubyPlugin.METRICFU_COMPLEXITY_METRIC_PROPERTY, "cane");
+		metricfuComplexitySensor.execute(context);
+		
+		// verify saved function complexity measure is correct
+		assertThat(context.measure(FILE2_KEY, CoreMetrics.FUNCTION_COMPLEXITY).value(), is(equalTo(72.0)));
+	}
+	
+	@Test
+	public void shouldAnalyzeAndSetCorrectCaneDistributionComplexities() throws Exception {
+		
+		// set cane report data analysis and run the sensor to collect the data
+		context.settings().setProperty(RubyPlugin.METRICFU_COMPLEXITY_METRIC_PROPERTY, "cane");
+		metricfuComplexitySensor.execute(context);
+		
+		// map the function complexity distribution results to
+		// boolean values corresponding to non-zero values
+		// and verify not all values are zero(evaluated distribution)
+		List<Boolean> functionComplexityDistribution =
+				Arrays.stream(context.measure(FILE2_KEY, CoreMetrics.FUNCTION_COMPLEXITY_DISTRIBUTION)
+						.value().split(";"))
+						.map(measure -> Integer.parseInt(measure.split("=")[1]) > 0)
+						.collect(Collectors.toList());
+		assertThat("expect function complexity distribution calculated", functionComplexityDistribution, hasItem(true));
+		
+		// map the file complexity distribution results to
+		// boolean values corresponding to non-zero values
+		// and verify not all values are zero(evaluated distribution)
+		List<Boolean> fileComplexityDistribution =
+				Arrays.stream(context.measure(FILE2_KEY, CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION)
+						.value().split(";"))
+						.map(measure -> Integer.parseInt(measure.split("=")[1]) > 0)
+						.collect(Collectors.toList());
+		assertThat("expect file complexity distribution calculated", fileComplexityDistribution, hasItem(true));
+	}
 }
