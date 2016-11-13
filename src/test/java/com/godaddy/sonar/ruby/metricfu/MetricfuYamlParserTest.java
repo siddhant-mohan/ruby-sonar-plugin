@@ -192,6 +192,7 @@ public class MetricfuYamlParserTest {
         assertThat(reekSmells.get(0).getMessage(), is(equalTo("has no descriptive comment")));
         assertThat(reekSmells.get(0).getMethod(), is(equalTo("AboutController")));
         assertThat(reekSmells.get(0).getType(), is(equalTo("IrresponsibleModule")));
+        assertThat(reekSmells.get(1).getLines().get(0), is(equalTo(4)));
     }
     
     @Test

@@ -4,17 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.godaddy.sonar.ruby.metricfu.*;
 import org.junit.Test;
 
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.godaddy.sonar.ruby.core.RubySourceCodeColorizer;
 import com.godaddy.sonar.ruby.core.profiles.SonarWayProfile;
-import com.godaddy.sonar.ruby.metricfu.CaneRulesDefinition;
-import com.godaddy.sonar.ruby.metricfu.MetricfuComplexitySensor;
-import com.godaddy.sonar.ruby.metricfu.MetricfuDuplicationSensor;
-import com.godaddy.sonar.ruby.metricfu.MetricfuIssueSensor;
-import com.godaddy.sonar.ruby.metricfu.ReekRulesDefinition;
-import com.godaddy.sonar.ruby.metricfu.RoodiRulesDefinition;
 import com.godaddy.sonar.ruby.simplecovrcov.SimpleCovRcovJsonParserImpl;
 import com.godaddy.sonar.ruby.simplecovrcov.SimpleCovRcovSensor;
 

@@ -5,16 +5,13 @@ import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.base.Charsets;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.batch.fs.*;
 import org.sonar.api.batch.fs.internal.*;
@@ -51,6 +48,7 @@ public class MetricfuComplexitySensorTest
 	@org.junit.Rule
 	public LogTester logTester = new LogTester();
 	
+	@SuppressWarnings("Duplicates")
 	@Before
 	public void setUp() throws Exception {
 		

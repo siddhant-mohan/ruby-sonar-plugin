@@ -1,8 +1,6 @@
 package com.godaddy.sonar.ruby.metricfu;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.sonar.api.rule.Severity;
 
@@ -12,6 +10,7 @@ public class ReekSmell {
     private String method;
     private String message;
     private String type;
+	private ArrayList<Integer> lines;
 
 	public static enum Smell {
 		Attribute,
@@ -122,8 +121,19 @@ public class ReekSmell {
     public void setType(String type) {
         this.type = type;
     }
-
-    @Override
+	
+	public List<Integer> getLines() {
+		return lines;
+	}
+	
+	public void addLine(int line) {
+		if (this.lines == null) {
+			this.lines = new ArrayList<>();
+		}
+		this.lines.add(line);
+	}
+	
+	@Override
     public String toString() {
         return "file: " + file + " methods: " + method + " message: " + message + " type: " + type;
     }

@@ -365,6 +365,10 @@ public class MetricfuYamlParser {
 						smell.setMessage(safeString((String)resultSmell.get(":message")));
 						smell.setType(safeString((String)resultSmell.get(":type")));
 						
+						for (int line : (List<Integer>)resultSmell.get(":lines")) {
+							smell.addLine(line);
+						}
+						
 						// add the new smell to the output list
 						smells.add(smell);
 					}
