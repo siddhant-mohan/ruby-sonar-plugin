@@ -21,7 +21,7 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.utils.log.*;
 
 public class MetricfuYamlParserTest {
-    private final static String YML_SYNTAX_FILE_NAME = "src/test/resources/test-data/metricfu_report.yml";
+    private final static String YML_SYNTAX_FILE_NAME = "/metricfu_report.yml";
     
     private Settings settings;
     private FileSystem fs;
@@ -32,7 +32,7 @@ public class MetricfuYamlParserTest {
     
     @Before
     public void setUp() throws Exception {
-        fs = new DefaultFileSystem(new File("."));
+        fs = new DefaultFileSystem(new File("./src/test/resources/test-data"));
         project = new Project("test project");
         project.setLanguage(LanguageRuby.INSTANCE);
         settings = new Settings();
