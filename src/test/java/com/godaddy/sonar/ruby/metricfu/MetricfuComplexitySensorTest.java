@@ -29,7 +29,7 @@ public class MetricfuComplexitySensorTest
 	
 	// initialize metricfu report file address, mock source files
 	// keys and mock project test directory data members
-	private final static String YML_SYNTAX_FILE_NAME = "src/test/resources/test-data/metricfu_report.yml";
+	private final static String YML_SYNTAX_FILE_NAME = "/metricfu_report.yml";
 	
 	private final String FILE1_KEY = "modulekey:app/controllers/about_controller.rb";
 	private final String FILE2_KEY = "modulekey:app/models/setting/auth.rb";

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.sonar.api.ExtensionPoint;
+import org.sonar.api.batch.BatchSide;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
@@ -18,6 +19,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.metricfu.FlayReason.Match;
 
+@BatchSide
 @ExtensionPoint
 public class MetricfuYamlParser {
     private static final Logger LOG = Loggers.get(MetricfuYamlParser.class);
@@ -68,7 +70,7 @@ public class MetricfuYamlParser {
         // attempts to open the report file and saves it's
 		// yaml representation as an object
         LOG.debug("Looking up report file: file:**/" + filename);
-        File report = new File(filename);
+        File report = new File(fileSystem.baseDir().toString() + '/' + filename);
 		if (report.exists()) {
 		    LOG.info("Report file: " + report.getPath());
 			
