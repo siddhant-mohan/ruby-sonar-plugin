@@ -1,39 +1,37 @@
 package com.godaddy.sonar.ruby.metricfu;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import java.io.File;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.base.Charsets;
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.batch.fs.*;
-import org.sonar.api.batch.fs.internal.*;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.FileMetadata;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.batch.sensor.issue.Issue;
 import org.sonar.api.config.Settings;
-
 import org.sonar.api.utils.log.LogTester;
 import org.sonar.api.utils.log.LoggerLevel;
+
+import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 public class MetricfuIssueSensorTest {
     
     // initialize metricfu report file address, mock source files
     // keys and mock project test directory data members
+    private File moduleBaseDir = new File("src/test/resources/test-data");
     private final static String YML_SYNTAX_FILE_NAME = "/metricfu_report.yml";
     
     private final String FILE1_KEY = "modulekey:app/controllers/about_controller.rb";
     private final String FILE2_KEY = "modulekey:app/models/setting/auth.rb";
     private final String FILE3_KEY = "modulekey:app/controllers/api/v2/hosts_controller.rb";
-    
-    private File moduleBaseDir = new File("src/test/resources/test-data");
     
     // declare the metricfu result parser, the examined complexity
     // sensor and a test sensor context to examine. setting object
@@ -78,8 +76,9 @@ public class MetricfuIssueSensorTest {
      * files with metadata and path only, such as file
      * type and language which enables locating using the
      * file system predicates.
+     *
      * @param relativePath the relative path to the file from module base directory
-     * @param type the input file type
+     * @param type         the input file type
      * @return the default input file generated
      */
     private InputFile inputFile(String relativePath, InputFile.Type type) {
@@ -98,8 +97,7 @@ public class MetricfuIssueSensorTest {
     }
     
     @Test
-    public void shouldInitializeConstructor()
-    {
+    public void shouldInitializeConstructor() {
         assertThat(metricfuIssueSensor, is(notNullValue()));
     }
     
@@ -120,7 +118,7 @@ public class MetricfuIssueSensorTest {
         
         // initialize issues sensor with mocked context
         metricfuIssueSensor.execute(context);
-    
+        
         // find roodi problems matching the file1 key
         List<Issue> issues = context.allIssues().stream()
                 .filter(issue -> issue.ruleKey().toString().contains("roodi"))
@@ -135,16 +133,16 @@ public class MetricfuIssueSensorTest {
     
     @Test
     public void shouldAnalyzeAndSetCorrectReekSmells() throws Exception {
-    
+        
         // initialize issues sensor with mocked context
         metricfuIssueSensor.execute(context);
-    
+        
         // find reek smells matching the file2 key
         List<Issue> issues = context.allIssues().stream()
                 .filter(issue -> issue.ruleKey().toString().contains("reek"))
                 .filter(issue -> issue.primaryLocation().inputComponent().key().equals(FILE2_KEY))
                 .collect(Collectors.toList());
-    
+        
         // verify sensor saves correct issue data
         assertThat("expect to find 10 reek smells", issues.size(), is(equalTo(10)));
         assertThat(issues.get(1).ruleKey().toString(), is(equalTo("reek:DuplicateMethodCall")));
@@ -154,17 +152,17 @@ public class MetricfuIssueSensorTest {
     
     @Test
     public void shouldAnalyzeAndSetCorrectCaneViolations() throws Exception {
-    
+        
         // initialize issues sensor with mocked context
         metricfuIssueSensor.execute(context);
-    
+        
         // find cane violations matching the file3 key
         List<Issue> issues = context.allIssues().stream()
                 .filter(issue -> issue.ruleKey().toString().contains("cane"))
                 .filter(issue -> issue.primaryLocation().inputComponent().key().equals(FILE3_KEY))
                 .filter(issue -> !issue.ruleKey().toString().contains("LineStyleLengthViolation"))
                 .collect(Collectors.toList());
-    
+        
         // verify sensor saves correct issue data
         assertThat(issues.get(0).ruleKey().toString(), containsString("CommentViolation"));
         assertThat(issues.get(0).primaryLocation().textRange().start().line(), is(equalTo(3)));

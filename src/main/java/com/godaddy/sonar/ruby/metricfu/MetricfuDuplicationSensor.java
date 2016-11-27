@@ -1,39 +1,34 @@
 package com.godaddy.sonar.ruby.metricfu;
 
-import java.util.ArrayList;
-
+import com.godaddy.sonar.ruby.core.Ruby;
+import com.google.common.collect.Lists;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
-
 import org.sonar.api.resources.Project;
-
-import com.godaddy.sonar.ruby.core.Ruby;
-import com.google.common.collect.Lists;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-public class MetricfuDuplicationSensor implements Sensor
-{
+import java.util.ArrayList;
+
+public class MetricfuDuplicationSensor implements Sensor {
     private static final Logger LOG = Loggers.get(MetricfuDuplicationSensor.class);
     private FileSystem fileSystem;
-	private MetricfuYamlParser metricfuYamlParser;
-
-	public MetricfuDuplicationSensor(FileSystem fileSystem, MetricfuYamlParser metricfuYamlParser)
-	{
-		this.fileSystem = fileSystem;
-		this.metricfuYamlParser = metricfuYamlParser;
-	}
-
-	public boolean shouldExecuteOnProject(Project project)
-	{
-	    return fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Ruby.KEY));
-	}
-
-	public void analyse(Project project, SensorContext context) {
-	    saveDuplication(context);
+    private MetricfuYamlParser metricfuYamlParser;
+    
+    public MetricfuDuplicationSensor(FileSystem fileSystem, MetricfuYamlParser metricfuYamlParser) {
+        this.fileSystem = fileSystem;
+        this.metricfuYamlParser = metricfuYamlParser;
+    }
+    
+    public boolean shouldExecuteOnProject(Project project) {
+        return fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Ruby.KEY));
+    }
+    
+    public void analyse(Project project, SensorContext context) {
+        saveDuplication(context);
 //		try {
 //		    List<FlayReason> duplications = metricfuYamlParser.parseFlay();
 //		    for (FlayReason duplication : duplications) {
@@ -146,30 +141,31 @@ public class MetricfuDuplicationSensor implements Sensor
 //		} catch (Exception e) {
 //			LOG.error("Exception raised while processing duplications.", e);
 //		}
-	}
-	private void saveDuplication(SensorContext sensorContext) {
-
-	    LOG.info("saveDuplication");
-
-	    ArrayList<InputFile> inputFiles = Lists.newArrayList(fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Ruby.KEY)));
-
-	    for (InputFile inputFile : inputFiles) {
-	        if (inputFile.lines() > 2) {
-				
-				// FIXME: add duplication support once out of beta
+    }
+    
+    private void saveDuplication(SensorContext sensorContext) {
+        
+        LOG.info("saveDuplication");
+        
+        ArrayList<InputFile> inputFiles = Lists.newArrayList(fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Ruby.KEY)));
+        
+        for (InputFile inputFile : inputFiles) {
+            if (inputFile.lines() > 2) {
+                
+                // FIXME: add duplication support once out of beta
                 NewCpdTokens nd = sensorContext.newCpdTokens();
-				
-				nd.onFile(inputFile);
-				// nd.addToken(inputFile.newRange(0, 0, inputFile.lines(), 0));
-    	        // nd.originBlock(inputFile, 1, inputFile.lines() / 2 - 1);
-    	        // LOG.info("originBlock {} 1:{}", inputFile.relativePath(), inputFile.lines() / 2 - 1);
-    	        // nd.isDuplicatedBy(inputFile, inputFile.lines() / 2, inputFile.lines() - 1);
-    	        // String s = Integer.toString(inputFile.lines() / 2);
-    	        // String e = Integer.toString(inputFile.lines() - 1);
-    	        // LOG.info("isDuplicatedBy " + inputFile.relativePath() + " : " + s + " : " + e);
+                
+                nd.onFile(inputFile);
+                // nd.addToken(inputFile.newRange(0, 0, inputFile.lines(), 0));
+                // nd.originBlock(inputFile, 1, inputFile.lines() / 2 - 1);
+                // LOG.info("originBlock {} 1:{}", inputFile.relativePath(), inputFile.lines() / 2 - 1);
+                // nd.isDuplicatedBy(inputFile, inputFile.lines() / 2, inputFile.lines() - 1);
+                // String s = Integer.toString(inputFile.lines() / 2);
+                // String e = Integer.toString(inputFile.lines() - 1);
+                // LOG.info("isDuplicatedBy " + inputFile.relativePath() + " : " + s + " : " + e);
                 //
-    	        nd.save();
-	        }
-	    }
-	}
+                nd.save();
+            }
+        }
+    }
 }

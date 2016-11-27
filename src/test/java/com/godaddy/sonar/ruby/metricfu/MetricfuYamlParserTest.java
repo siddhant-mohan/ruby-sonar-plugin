@@ -1,16 +1,7 @@
 package com.godaddy.sonar.ruby.metricfu;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.LanguageRuby;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.FileSystem;
@@ -18,7 +9,16 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.internal.apachecommons.lang.reflect.FieldUtils;
 import org.sonar.api.resources.Project;
-import org.sonar.api.utils.log.*;
+import org.sonar.api.utils.log.LogTester;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class MetricfuYamlParserTest {
     private final static String YML_SYNTAX_FILE_NAME = "/metricfu_report.yml";
@@ -177,7 +177,7 @@ public class MetricfuYamlParserTest {
     
     @Test
     public void shouldParseAndReturnReekSmells() throws Exception {
-    
+        
         // initialize parser and request the reek smells
         MetricfuYamlParser parser = new MetricfuYamlParser(settings, fs, YML_SYNTAX_FILE_NAME);
         List<ReekSmell> reekSmells =
@@ -197,7 +197,7 @@ public class MetricfuYamlParserTest {
     
     @Test
     public void shouldParseAndReturnFlayReasons() throws Exception {
-    
+        
         // initialize parser and request the flay reasons
         MetricfuYamlParser parser = new MetricfuYamlParser(settings, fs, YML_SYNTAX_FILE_NAME);
         List<FlayReason> flayReasons = parser.parseFlay();
@@ -211,7 +211,7 @@ public class MetricfuYamlParserTest {
                 flayReasons.get(1).getReason(), is(equalTo("2) IDENTICAL code found in :defn (mass*2 = 440)")));
         
         // verify flay matches correspond to the reason
-        for(FlayReason.Match match : flayReasons.get(1).getMatches()) {
+        for (FlayReason.Match match : flayReasons.get(1).getMatches()) {
             
             // verify match set the correct file name and lines parameters
             assertThat("expect the flay reason to get correct match filenames", match.getFile(), anyOf(

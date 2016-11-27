@@ -1,26 +1,24 @@
 package com.godaddy.sonar.ruby.metricfu;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.sonar.api.batch.sensor.Sensor;
-import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.sensor.SensorDescriptor;
-import org.sonar.api.batch.sensor.issue.NewIssue;
-import org.sonar.api.batch.sensor.issue.NewIssueLocation;
-import org.sonar.api.rule.RuleKey;
-
 import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.godaddy.sonar.ruby.metricfu.RoodiProblem.RoodiCheck;
 import com.google.common.collect.Lists;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.sensor.Sensor;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-public class MetricfuIssueSensor implements Sensor
-{
+import java.io.IOException;
+import java.util.List;
+
+public class MetricfuIssueSensor implements Sensor {
     private static final Logger LOG = Loggers.get(MetricfuIssueSensor.class);
     
     private MetricfuYamlParser metricfuYamlParser;
@@ -39,12 +37,12 @@ public class MetricfuIssueSensor implements Sensor
         this.fileSystem = fileSystem;
         this.metricfuYamlParser = metricfuYamlParser;
     }
-
+    
     @Override
     public void describe(SensorDescriptor sensorDescriptor) {
         sensorDescriptor.onlyOnLanguage(Ruby.KEY).name("MetricfuIssueSensor");
     }
-
+    
     @Override
     public void execute(SensorContext context) {
         for (InputFile file : Lists.newArrayList(fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Ruby.KEY)))) {
@@ -61,7 +59,7 @@ public class MetricfuIssueSensor implements Sensor
      * Analysis helper function used to parse specific given project
      * files and save their metrics into the SonarQube system
      *
-     * @param file the file to scan and report for
+     * @param file    the file to scan and report for
      * @param context the project issues sensor context
      */
     private void analyzeFile(InputFile file, SensorContext context) throws IOException {
@@ -79,7 +77,7 @@ public class MetricfuIssueSensor implements Sensor
                             .message(smell.getMessage()))
                     .save();
         }
-    
+        
         // fetch roodi problems and set file roodi issues
         List<RoodiProblem> problems = metricfuYamlParser.parseRoodi(file.relativePath());
         for (RoodiProblem problem : problems) {
@@ -96,20 +94,20 @@ public class MetricfuIssueSensor implements Sensor
                             .message(problem.getProblem()))
                     .save();
         }
-    
+        
         // fetch cane violations and set file cane issues
         List<CaneViolation> violations = metricfuYamlParser.parseCane(file.relativePath());
         for (CaneViolation violation : violations) {
-    
+            
             // initialize the cane issue with it's appropriate key
             NewIssue issue = context
                     .newIssue()
                     .forRule(RuleKey.of(RubyPlugin.KEY_REPOSITORY_CANE, violation.getKey()));
             NewIssueLocation location = null;
-    
+            
             // dependant on the cane violation subtype, set the issue location and message
             if (violation instanceof CaneCommentViolation) {
-                CaneCommentViolation caneCommentViolation = (CaneCommentViolation)violation;
+                CaneCommentViolation caneCommentViolation = (CaneCommentViolation) violation;
                 location = issue.newLocation()
                         .on(file)
                         .at(file.selectLine(caneCommentViolation.getLine()))
@@ -117,20 +115,19 @@ public class MetricfuIssueSensor implements Sensor
                                 + "' requires explanatory comments on preceding line.");
                 
             } else if (violation instanceof CaneComplexityViolation) {
-                CaneComplexityViolation caneComplexityViolation = (CaneComplexityViolation)violation;
+                CaneComplexityViolation caneComplexityViolation = (CaneComplexityViolation) violation;
                 location = issue.newLocation()
                         .on(file)
                         .message("Method '" + caneComplexityViolation.getMethod() + "' has ABC complexity of "
                                 + caneComplexityViolation.getComplexity() + ".");
                 
             } else if (violation instanceof CaneLineStyleViolation) {
-                CaneLineStyleViolation caneLineStyleViolation = (CaneLineStyleViolation)violation;
+                CaneLineStyleViolation caneLineStyleViolation = (CaneLineStyleViolation) violation;
                 location = issue.newLocation()
                         .on(file)
                         .at(file.selectLine(caneLineStyleViolation.getLine()))
                         .message(caneLineStyleViolation.getDescription() + ".");
-            }
-            else {
+            } else {
                 LOG.error("Unauthorized cane violation type");
             }
             
