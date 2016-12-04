@@ -4,6 +4,7 @@ import com.godaddy.sonar.ruby.RubyPlugin;
 import com.godaddy.sonar.ruby.core.Ruby;
 import com.google.common.base.Charsets;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -138,9 +139,9 @@ public class MetricfuComplexitySensorTest {
         metricfuComplexitySensor.execute(context);
         
         // verify sensor saves correct measured report data
-        assertThat(context.measure(FILE1_KEY, CoreMetrics.FUNCTION_COMPLEXITY).value(), is(equalTo(3.0)));
-        assertThat(context.measure(FILE2_KEY, CoreMetrics.FUNCTION_COMPLEXITY).value(), is(equalTo(2.5)));
-        assertThat(context.measure(FILE3_KEY, CoreMetrics.FUNCTION_COMPLEXITY).value(), is(equalTo(58d / 24)));
+        assertThat(context.measure(FILE1_KEY, CoreMetrics.COMPLEXITY).value(), is(equalTo(3)));
+        assertThat(context.measure(FILE2_KEY, CoreMetrics.COMPLEXITY).value(), is(equalTo(2)));
+        assertThat(context.measure(FILE3_KEY, CoreMetrics.COMPLEXITY).value(), is(equalTo(58 / 24)));
     }
     
     @Test
@@ -179,7 +180,7 @@ public class MetricfuComplexitySensorTest {
         metricfuComplexitySensor.execute(context);
         
         // verify saved function complexity measure is correct
-        assertThat(context.measure(FILE2_KEY, CoreMetrics.FUNCTION_COMPLEXITY).value(), is(equalTo(72.0)));
+        assertThat(context.measure(FILE2_KEY, CoreMetrics.COMPLEXITY).value(), is(equalTo(72)));
     }
     
     @Test

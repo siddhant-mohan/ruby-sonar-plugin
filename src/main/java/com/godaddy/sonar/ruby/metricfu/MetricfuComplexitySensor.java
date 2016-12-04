@@ -138,10 +138,10 @@ public class MetricfuComplexitySensor implements Sensor {
                     .save();
             
             // save the mean function complexity
-            sensorContext.<Double> newMeasure()
+            sensorContext.<Integer> newMeasure()
                     .on(inputFile)
-                    .forMetric(CoreMetrics.FUNCTION_COMPLEXITY)
-                    .withValue((double) fileTotalComplexity / numberOfMethods)
+                    .forMetric(CoreMetrics.COMPLEXITY)
+                    .withValue(fileTotalComplexity / numberOfMethods)
                     .save();
             
             // save the function complexity distribution metrics
