@@ -1,17 +1,10 @@
 package com.godaddy.sonar.ruby.duplications;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import com.godaddy.sonar.ruby.core.Ruby;
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
-
 import org.jruby.CompatVersion;
 import org.jruby.lexer.yacc.LexerSource;
 import org.jruby.lexer.yacc.RubyYaccLexer;
@@ -25,7 +18,12 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Project;
 
-import com.godaddy.sonar.ruby.core.Ruby;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class RubyCPDMapping extends AbstractCpdMapping {
     Ruby ruby;

@@ -12,9 +12,10 @@ import java.io.IOException;
 public final class CommentCountParser {
 
     private static final Logger LOG = Loggers.get(CommentCountParser.class);
-    
-    private CommentCountParser() {}
-    
+
+    private CommentCountParser() {
+    }
+
     public static int countLinesOfComment(File file) {
         int numComments = 0;
         LineIterator iterator = null;

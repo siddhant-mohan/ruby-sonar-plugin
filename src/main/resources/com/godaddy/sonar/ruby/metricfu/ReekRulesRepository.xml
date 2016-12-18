@@ -1,23 +1,23 @@
 <rules>
-  <rule>
-    <key>Attribute</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Attribute]]></name>
-    <description>
-      <![CDATA[
+    <rule>
+        <key>Attribute</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Attribute]]></name>
+        <description>
+            <![CDATA[
         <p>
           A class that publishes a getter or setter for an instance variable invites client classes to 
           become too intimate with its inner workings, and in particular with its representation of state.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>BooleanParameter</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Boolean Parameter]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>BooleanParameter</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Boolean Parameter]]></name>
+        <description>
+            <![CDATA[
         <p>
           Control coupling occurs when a method or block checks the value of a parameter in order to 
           decide which execution path to take. The offending  parameter is often called a "Control Couple".
@@ -32,14 +32,14 @@
           has more than one responsibility, because it includes at least two different code paths.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>ClassVariable</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Class Variable]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>ClassVariable</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Class Variable]]></name>
+        <description>
+            <![CDATA[
         <p>
           Class variables form part of the global runtime state, and as such make it easy for one part 
           of the system to accidentally or inadvertently depend on another part of the system. So the 
@@ -48,14 +48,14 @@
           context of the test includes all global state).
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>ControlCouple</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Control Couple]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>ControlCouple</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Control Couple]]></name>
+        <description>
+            <![CDATA[
         <p>
           Control coupling occurs when a method or block checks the value of a parameter in order to 
           decide which execution path to take. The offending  parameter is often called a "Control Couple".
@@ -70,14 +70,14 @@
           has more than one responsibility, because it includes at least two different code paths.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>ControlParameter</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Control Parameter]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>ControlParameter</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Control Parameter]]></name>
+        <description>
+            <![CDATA[
         <p>
           Control coupling occurs when a method or block checks the value of a parameter in order to 
           decide which execution path to take. The offending  parameter is often called a "Control Couple".
@@ -92,14 +92,14 @@
           has more than one responsibility, because it includes at least two different code paths.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>DataClump</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Data Clump]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>DataClump</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Data Clump]]></name>
+        <description>
+            <![CDATA[
         <p>
           In general, a Data Clump occurs when the same two or three items frequently appear together 
           in classes and parameter lists, or when a group of instance variable names start or end with similar substrings.
@@ -109,40 +109,40 @@
           There may be an abstraction missing from the code, making the system harder to understand.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>Duplication</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Duplication]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>Duplication</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Duplication]]></name>
+        <description>
+            <![CDATA[
         <p>
           Duplication occurs when two fragments of code look nearly identical, or when two fragments of code 
           have nearly identical effects at some conceptual level.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>DuplicateMethodCall</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Duplicate Method Call]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>DuplicateMethodCall</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Duplicate Method Call]]></name>
+        <description>
+            <![CDATA[
         <p>
           Duplication occurs when two fragments of code look nearly identical, or when two fragments of code 
           have nearly identical effects at some conceptual level.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>FeatureEnvy</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Feature Envy]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>FeatureEnvy</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Feature Envy]]></name>
+        <description>
+            <![CDATA[
         <p>
           Feature Envy occurs when a code fragment references another object more often than it references itself, 
           or when several clients do the same series of manipulations on a particular type of object.
@@ -175,102 +175,102 @@ end
           and the utility method will most likely belong there.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>IrresponsibleModule</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Irresponsible Module]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>IrresponsibleModule</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Irresponsible Module]]></name>
+        <description>
+            <![CDATA[
         <p>
           Classes and modules are the units of reuse and release. It is therefore considered good practice to 
           annotate every class and module with a brief comment outlining its responsibilities.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LargeClass</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Large Class]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LargeClass</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Large Class]]></name>
+        <description>
+            <![CDATA[
         <p>
           A Large Class is a class or module that has a large number of instance variables, methods 
           or lines of code in any one piece of its specification. (That is, this smell relates to 
           pieces of the class''s specification, not to the size of the corresponding instance of Class.).        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LongParameterList</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Long Parameter List]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LongParameterList</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Long Parameter List]]></name>
+        <description>
+            <![CDATA[
         <p>
           A Long Parameter List occurs when a method has more than one or two parameters.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LongYieldList</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Long Yield List]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LongYieldList</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Long Yield List]]></name>
+        <description>
+            <![CDATA[
         <p>
           A Long Yield List occurs when a method yields more than one or two objects to an associated block.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>ModuleInitialize</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Module Initialize]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>ModuleInitialize</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Module Initialize]]></name>
+        <description>
+            <![CDATA[
         <p>
           A module is usually a mixin, so when initialize method is present it is hard to tell initialization
           order and parameters so having 'initialize' in a module is usually a bad idea.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>NestedIterators</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Nested Iterators]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>NestedIterators</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Nested Iterators]]></name>
+        <description>
+            <![CDATA[
         <p>
           A Nested Iterator occurs when a block contains another block.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>NilCheck</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Nil Check]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>NilCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Nil Check]]></name>
+        <description>
+            <![CDATA[
         <p>
           Perform nil check is a type check. Which violates "tell, don't ask".        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>PrimaDonnaMethod</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Prima Donna Method]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>PrimaDonnaMethod</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Prima Donna Method]]></name>
+        <description>
+            <![CDATA[
         <p>
 		  The ! in method names that end with ! means, "This method is dangerous"
 		  -- or, more precisely, this method is the "dangerous" version of an
@@ -286,14 +286,14 @@ end
 		  whatsoever.
 	   </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>RepeatedConditional</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Repeated Conditional]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>RepeatedConditional</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Repeated Conditional]]></name>
+        <description>
+            <![CDATA[
         <p>
           Conditional code is hard to read and understand, because the reader must hold more state in his head. 
           When the same value is tested in multiple places throughout an application, any change to the set of 
@@ -301,14 +301,14 @@ end
           indicate that the abstraction represented by that type is not completely defined (or understood).
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>SimulatedPolymorphism</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Simulated Polymorphism]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>SimulatedPolymorphism</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Simulated Polymorphism]]></name>
+        <description>
+            <![CDATA[
         <p>
           Simulated Polymorphism occurs when
         </p>
@@ -325,38 +325,38 @@ end
           indicate that the abstraction represented by that type is not completely defined (or understood).
         </p>        
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>TooManyInstanceVariables</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Too Many Instance Variables]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>TooManyInstanceVariables</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Too Many Instance Variables]]></name>
+        <description>
+            <![CDATA[
         <p>
           Warns about a class or module that has too many instance variables.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>TooManyMethods</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Too Many Methods]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>TooManyMethods</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Too Many Methods]]></name>
+        <description>
+            <![CDATA[
         <p>
           Warns about a class or module that has too many methods.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>TooManyStatements</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Too Many Statements]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>TooManyStatements</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Too Many Statements]]></name>
+        <description>
+            <![CDATA[
         <p>
           Currently Too Many Statements warns about any method that has more than 5 "statements". 
           Reek's smell detector for Too Many Statements counts +1 for every simple statement in 
@@ -389,14 +389,14 @@ end
           please feel free to vote up ticket #32.)
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UncommunicativeName</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Uncommunicative Name]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UncommunicativeName</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Uncommunicative Name]]></name>
+        <description>
+            <![CDATA[
         <p>
           An Uncommunicative Name is a name that doesn't communicate its intent well enough.
         </p>
@@ -406,14 +406,14 @@ end
           slow down to interpret the names.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UncommunicativeMethodName</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Uncommunicative Method Name]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UncommunicativeMethodName</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Uncommunicative Method Name]]></name>
+        <description>
+            <![CDATA[
         <p>
           An Uncommunicative Method Name is a method name that doesn't communicate its intent well enough.
         </p>
@@ -423,14 +423,14 @@ end
           slow down to interpret the names.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UncommunicativeModuleName</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Uncommunicative Module Name]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UncommunicativeModuleName</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Uncommunicative Module Name]]></name>
+        <description>
+            <![CDATA[
         <p>
           An Uncommunicative Module Name is a module name that doesn't communicate its intent well enough.
         </p>
@@ -440,14 +440,14 @@ end
           slow down to interpret the names.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UncommunicativeParameterName</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Uncommunicative Parameter Name]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UncommunicativeParameterName</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Uncommunicative Parameter Name]]></name>
+        <description>
+            <![CDATA[
         <p>
           An Uncommunicative Parameter Name is a parameter name that doesn't communicate its intent well enough.
         </p>
@@ -457,14 +457,14 @@ end
           slow down to interpret the names.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UncommunicativeVariableName</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Uncommunicative Variable Name]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UncommunicativeVariableName</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Uncommunicative Variable Name]]></name>
+        <description>
+            <![CDATA[
         <p>
           An Uncommunicative Variable Name is a variable name that doesn't communicate its intent well enough.
         </p>
@@ -474,14 +474,14 @@ end
           slow down to interpret the names.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UnusedParameters</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Unused Parameters]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UnusedParameters</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Unused Parameters]]></name>
+        <description>
+            <![CDATA[
         <p>
           Unused Parameters refers to methods with parameters that are unused in scope of the method.
         </p>
@@ -490,14 +490,14 @@ end
           can never improve the method and it makes the code confusing to read.        
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>UtilityFunction</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[Utility Function]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>UtilityFunction</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Utility Function]]></name>
+        <description>
+            <![CDATA[
         <p>
           A Utility Function is any instance method that has no dependency on the state of the instance.
         </p>
@@ -519,6 +519,6 @@ end
           extra knowledge should be reified into a class, and the utility method will most likely belong there.
         </p>
       ]]>
-    </description>
-  </rule>
+        </description>
+    </rule>
 </rules>

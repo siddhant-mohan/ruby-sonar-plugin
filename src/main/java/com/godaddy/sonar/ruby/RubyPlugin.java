@@ -24,17 +24,17 @@ import java.util.List;
 public final class RubyPlugin extends SonarPlugin {
     public static final String KEY_REPOSITORY_CANE = "cane";
     public static final String NAME_REPOSITORY_CANE = "Cane";
-    
+
     public static final String KEY_REPOSITORY_REEK = "reek";
     public static final String NAME_REPOSITORY_REEK = "Reek";
-    
+
     public static final String KEY_REPOSITORY_ROODI = "roodi";
     public static final String NAME_REPOSITORY_ROODI = "Roodi";
-    
+
     public static final String SIMPLECOVRCOV_REPORT_PATH_PROPERTY = "sonar.simplecovrcov.reportPath";
     public static final String METRICFU_REPORT_PATH_PROPERTY = "sonar.metricfu.reportPath";
     public static final String METRICFU_COMPLEXITY_METRIC_PROPERTY = "sonar.metricfu.complexityMetric";
-    
+
     public List<Object> getExtensions() {
         List<Object> extensions = new ArrayList<Object>();
         extensions.add(Ruby.class);
@@ -51,11 +51,11 @@ public final class RubyPlugin extends SonarPlugin {
         extensions.add(CaneRulesDefinition.class);
         extensions.add(ReekRulesDefinition.class);
         extensions.add(RoodiRulesDefinition.class);
-        
-        
+
+
         // Profiles
         extensions.add(SonarWayProfile.class);
-        
+
         PropertyDefinition metricfuReportPath = PropertyDefinition.builder(METRICFU_REPORT_PATH_PROPERTY)
                 .category(CoreProperties.CATEGORY_CODE_COVERAGE)
                 .subCategory("Ruby Coverage")
@@ -65,7 +65,7 @@ public final class RubyPlugin extends SonarPlugin {
                 .onQualifiers(Qualifiers.PROJECT)
                 .build();
         extensions.add(metricfuReportPath);
-        
+
         PropertyDefinition simplecovrcovReportPath = PropertyDefinition.builder(SIMPLECOVRCOV_REPORT_PATH_PROPERTY)
                 .category(CoreProperties.CATEGORY_CODE_COVERAGE)
                 .subCategory("Ruby Coverage")
@@ -75,9 +75,9 @@ public final class RubyPlugin extends SonarPlugin {
                 .onQualifiers(Qualifiers.PROJECT)
                 .build();
         extensions.add(simplecovrcovReportPath);
-        
+
         List<String> options = Arrays.asList("Saikuro", "Cane");
-        
+
         PropertyDefinition ComplexityMetric = PropertyDefinition.builder(METRICFU_COMPLEXITY_METRIC_PROPERTY)
                 .category(CoreProperties.CATEGORY_CODE_COVERAGE)
                 .subCategory("Ruby Coverage")
@@ -89,7 +89,7 @@ public final class RubyPlugin extends SonarPlugin {
                 .options(options)
                 .build();
         extensions.add(ComplexityMetric);
-        
+
         return extensions;
     }
 }

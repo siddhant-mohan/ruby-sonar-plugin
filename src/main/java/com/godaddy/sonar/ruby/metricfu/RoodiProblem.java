@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RoodiProblem {
-    
+
     private String file;
     private int line = 0;
     private String problem;
-    
+
     public static enum RoodiCheck {
         AbcMetricMethodCheck,
         AssignmentInConditionalCheck,
@@ -33,13 +33,13 @@ public class RoodiProblem {
         NpathComplexityMethodCheck,
         ParameterNumberCheck,
     }
-    
+
     ;
-    
-    
+
+
     private static final Map<Pattern, RoodiCheck> messageToKeyMap;
     private static final Map<RoodiCheck, String> keyToSeverityMap;
-    
+
     static {
         HashMap<Pattern, RoodiCheck> mapPatternToCheck = new HashMap<Pattern, RoodiCheck>();
         mapPatternToCheck.put(Pattern.compile("^Found = in conditional\\.", Pattern.CASE_INSENSITIVE), RoodiCheck.AssignmentInConditionalCheck);
@@ -61,7 +61,7 @@ public class RoodiProblem {
         mapPatternToCheck.put(Pattern.compile("^Method name \"[^\"]+\" has \\d+ parameters\\.", Pattern.CASE_INSENSITIVE), RoodiCheck.ParameterNumberCheck);
         mapPatternToCheck.put(Pattern.compile("^Method name \"[^\"]+\" has an ABC metric score of ", Pattern.CASE_INSENSITIVE), RoodiCheck.AbcMetricMethodCheck);
         messageToKeyMap = Collections.unmodifiableMap(mapPatternToCheck);
-        
+
         HashMap<RoodiCheck, String> mapKeyToSeverity = new HashMap<RoodiCheck, String>();
         mapKeyToSeverity.put(RoodiCheck.AbcMetricMethodCheck, Severity.MAJOR);
         mapKeyToSeverity.put(RoodiCheck.AssignmentInConditionalCheck, Severity.CRITICAL);
@@ -83,46 +83,46 @@ public class RoodiProblem {
         mapKeyToSeverity.put(RoodiCheck.ParameterNumberCheck, Severity.MINOR);
         keyToSeverityMap = Collections.unmodifiableMap(mapKeyToSeverity);
     }
-    
-    
+
+
     public RoodiProblem(String file, int line, String problem) {
         this.file = file;
         this.line = line;
         this.problem = problem;
     }
-    
+
     public RoodiProblem() {
     }
-    
+
     public String getFile() {
         return file;
     }
-    
+
     public void setFile(String file) {
         this.file = file;
     }
-    
+
     public int getLine() {
         return line;
     }
-    
+
     public void setLine(int line) {
         this.line = line;
     }
-    
+
     public String getProblem() {
         return problem;
     }
-    
+
     public void setProblem(String problem) {
         this.problem = problem;
     }
-    
+
     @Override
     public String toString() {
         return "file: " + file + " lines: " + line + " problem: " + problem;
     }
-    
+
     public static RoodiCheck messageToKey(String message) {
         for (Pattern p : messageToKeyMap.keySet()) {
             if (p.matcher(message).find()) {
@@ -131,14 +131,14 @@ public class RoodiProblem {
         }
         return null;
     }
-    
+
     public static String toSeverity(RoodiCheck check) {
         if (keyToSeverityMap.containsKey(check)) {
             return keyToSeverityMap.get(check);
         }
         return Severity.BLOCKER; // Make sure we catch this case.
     }
-    
+
     public static String toSeverity(String check) {
         try {
             return toSeverity(RoodiCheck.valueOf(check));

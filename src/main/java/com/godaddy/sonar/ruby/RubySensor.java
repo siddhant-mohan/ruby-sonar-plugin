@@ -22,31 +22,31 @@ import java.util.List;
 
 public class RubySensor implements Sensor {
     private FileSystem fileSystem;
-    
+
     public RubySensor(Settings settings, FileSystem fileSystem) {
         this.fileSystem = fileSystem;
     }
-    
+
     @Override
     public boolean shouldExecuteOnProject(Project project) {
         // This sensor is executed only when there are Ruby files
         return fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Ruby.KEY));
     }
-    
+
     public void analyse(Project project, SensorContext context) {
         computeBaseMetrics(context, project);
     }
-    
+
     protected void computeBaseMetrics(SensorContext sensorContext, Project project) {
         Reader reader = null;
         List<InputFile> inputFiles = Lists.newArrayList(fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Ruby.KEY)));
-        
+
         for (InputFile inputFile : inputFiles) {
             try {
                 reader = new StringReader(FileUtils.readFileToString(inputFile.file(), fileSystem.encoding().name()));
                 Source source = new Source(reader, new RubyRecognizer());
                 sensorContext.saveMeasure(inputFile, CoreMetrics.NCLOC, (double) source.getMeasure(Metric.LINES_OF_CODE));
-                
+
                 int numCommentLines = CommentCountParser.countLinesOfComment(inputFile.file());
                 sensorContext.saveMeasure(inputFile, CoreMetrics.COMMENT_LINES, (double) numCommentLines);
                 sensorContext.saveMeasure(inputFile, CoreMetrics.FILES, 1.0);
@@ -58,7 +58,7 @@ public class RubySensor implements Sensor {
             }
         }
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName();

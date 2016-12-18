@@ -28,7 +28,7 @@ module Api
       param_group :search_and_pagination, ::Api::V2::BaseController
 
       def index
-        @hosts = resource_scope_for_index.includes([ :host_statuses, :compute_resource, :hostgroup, :operatingsystem, :interfaces, :token ])
+        @hosts = resource_scope_for_index.includes([:host_statuses, :compute_resource, :hostgroup, :operatingsystem, :interfaces, :token])
         # SQL optimizations queries
         @last_report_ids = Report.where(:host_id => @hosts.map(&:id)).group(:host_id).maximum(:id)
         @last_reports = Report.where(:id => @last_report_ids.values)
@@ -102,7 +102,7 @@ module Api
         forward_request_url
         process_response @host.save
       rescue InterfaceTypeMapper::UnknownTypeExeption => e
-        render_error :custom_error, :status => :unprocessable_entity, :locals => { :message => e.to_s }
+        render_error :custom_error, :status => :unprocessable_entity, :locals => {:message => e.to_s}
       end
 
       api :PUT, "/hosts/:id/", N_("Update a host")
@@ -115,7 +115,7 @@ module Api
 
         process_response @host.save
       rescue InterfaceTypeMapper::UnknownTypeExeption => e
-        render_error :custom_error, :status => :unprocessable_entity, :locals => { :message => e.to_s }
+        render_error :custom_error, :status => :unprocessable_entity, :locals => {:message => e.to_s}
       end
 
       api :DELETE, "/hosts/:id/", N_("Delete a host")
@@ -140,19 +140,20 @@ Return value may either be one of the following:
 
       def status
         Foreman::Deprecation.api_deprecation_warning('The /status route is deprecated, please use the new /status/configuration instead')
-        render :json => { :status => @host.get_status(HostStatus::ConfigurationStatus).to_label }.to_json if @host
+        render :json => {:status => @host.get_status(HostStatus::ConfigurationStatus).to_label}.to_json if @host
       end
 
       api :GET, "/hosts/:id/status/:type", N_("Get status of host")
       param :id, :identifier_dottable, :required => true
-      param :type, [ HostStatus::Global ] + HostStatus.status_registry.to_a.map { |s| s.humanized_name }, :required => true, :desc => N_(<<-eos
+      param :type, [HostStatus::Global] + HostStatus.status_registry.to_a.map { |s| s.humanized_name }, :required => true, :desc => N_(<<-eos
 status type, can be one of
 * global
 * configuration
 * build
-eos
-)
+      eos
+      )
       description N_('Returns string representing a host status of a given type')
+
       def get_status
         case params[:type]
           when 'global'
@@ -172,7 +173,7 @@ Return the host's compute attributes that can be used to create a clone of this 
         render :json => {} unless @host
         attrs = @host.vm_compute_attributes || {}
         safe_attrs = {}
-        attrs.each_pair do |k,v|
+        attrs.each_pair do |k, v|
           # clean up the compute attributes to be suitable for output
           if v.is_a?(Proc)
             safe_attrs[k] = v.call
@@ -195,6 +196,7 @@ Return the host's compute attributes that can be used to create a clone of this 
 
       api :PUT, "/hosts/:id/disassociate", N_("Disassociate the host from a VM")
       param :id, :identifier_dottable, :required => true
+
       def disassociate
         @host.disassociate!
         render 'api/v2/hosts/show'
@@ -207,9 +209,9 @@ Return the host's compute attributes that can be used to create a clone of this 
       def power
         valid_actions = PowerManager::SUPPORTED_ACTIONS
         if valid_actions.include? params[:power_action]
-          render :json => { :power => @host.power.send(params[:power_action]) }, :status => :ok
+          render :json => {:power => @host.power.send(params[:power_action])}, :status => :ok
         else
-          render :json => { :error => _("Unknown power action: available methods are %s") % valid_actions.join(', ') }, :status => :unprocessable_entity
+          render :json => {:error => _("Unknown power action: available methods are %s") % valid_actions.join(', ')}, :status => :unprocessable_entity
         end
       end
 
@@ -220,17 +222,17 @@ Return the host's compute attributes that can be used to create a clone of this 
       def boot
         valid_devices = ProxyAPI::BMC::SUPPORTED_BOOT_DEVICES
         if valid_devices.include? params[:device]
-          render :json => { :boot => @host.ipmi_boot(params[:device]) }, :status => :ok
+          render :json => {:boot => @host.ipmi_boot(params[:device])}, :status => :ok
         else
-          render :json => { :error => _("Unknown device: available devices are %s") % valid_devices.join(', ') }, :status => :unprocessable_entity
+          render :json => {:error => _("Unknown device: available devices are %s") % valid_devices.join(', ')}, :status => :unprocessable_entity
         end
       end
 
       api :POST, "/hosts/facts", N_("Upload facts for a host, creating the host if required")
       param :name, String, :required => true, :desc => N_("hostname of the host")
-      param :facts, Hash,      :required => true, :desc => N_("hash containing the facts for the host")
+      param :facts, Hash, :required => true, :desc => N_("hash containing the facts for the host")
       param :certname, String, :desc => N_("optional: certname of the host")
-      param :type, String,     :desc => N_("optional: the STI type of host to create")
+      param :type, String, :desc => N_("optional: the STI type of host to create")
 
       def facts
         @host = detect_host_type.import_host params[:name], params[:facts][:_type] || 'puppet', params[:certname], detected_proxy.try(:id)
@@ -242,9 +244,10 @@ Return the host's compute attributes that can be used to create a clone of this 
 
       api :PUT, "/hosts/:id/rebuild_config", N_("Rebuild orchestration config")
       param :id, :identifier_dottable, :required => true
+
       def rebuild_config
         result = @host.recreate_config
-        failures = result.reject { |key, value| value }.keys.map{ |k| _(k) }
+        failures = result.reject { |key, value| value }.keys.map { |k| _(k) }
         if failures.empty?
           render_message _("Configuration successfully rebuilt."), :status => :ok
         else
@@ -255,12 +258,13 @@ Return the host's compute attributes that can be used to create a clone of this 
       api :GET, "/hosts/:id/template/:kind", N_("Preview rendered provisioning template content")
       param :id, :identifier_dottable, :required => true
       param :kind, String, :required => true, :desc => N_("Template kinds, available values: %{template_kinds}")
+
       def template
-        template = @host.provisioning_template({ :kind => params[:kind] })
+        template = @host.provisioning_template({:kind => params[:kind]})
         if template.nil?
           not_found(_("No template with kind %{kind} for %{host}") % {:kind => params[:kind], :host => @host.to_label})
         else
-          render :json => { :template => @host.render_template(template) }, :status => :ok
+          render :json => {:template => @host.render_template(template)}, :status => :ok
         end
       end
 

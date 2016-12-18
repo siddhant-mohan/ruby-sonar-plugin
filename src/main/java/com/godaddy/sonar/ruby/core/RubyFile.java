@@ -1,7 +1,6 @@
 package com.godaddy.sonar.ruby.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Qualifiers;
@@ -16,23 +15,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class RubyFile extends Resource
-{
+public class RubyFile extends Resource {
     /**
-   * 
-   */
+     *
+     */
     private static final long serialVersionUID = 1L;
     private String filename;
     private String longName;
     private String packageKey;
     private RubyPackage parent = null;
 
-    public RubyFile(File file, List<InputFile> sourceDirs)
-    {
+    public RubyFile(File file, List<InputFile> sourceDirs) {
         super();
 
-        if (file == null)
-        {
+        if (file == null) {
             throw new IllegalArgumentException("File cannot be null");
         }
 
@@ -41,19 +37,16 @@ public class RubyFile extends Resource
 
         this.packageKey = RubyPackage.DEFAULT_PACKAGE_NAME;
 
-        if (sourceDirs != null)
-        {
+        if (sourceDirs != null) {
             PathResolver resolver = new PathResolver();
             Collection<File> colSrcDirs = toFileCollection(sourceDirs);
             RelativePath relativePath = resolver.relativePath(colSrcDirs, file);
-            if (relativePath != null)
-            {
+            if (relativePath != null) {
                 dirName = relativePath.dir().toString();
 
                 this.filename = StringUtils.substringBeforeLast(relativePath.path(), ".");
 
-                if (dirName.indexOf(File.separator) >= 0)
-                {
+                if (dirName.indexOf(File.separator) >= 0) {
                     this.packageKey = StringUtils.strip(dirName, File.separator);
                     this.packageKey = StringUtils.replace(this.packageKey, File.separator, ".");
                     this.packageKey = StringUtils.substringAfterLast(this.packageKey, ".");
@@ -67,67 +60,58 @@ public class RubyFile extends Resource
         setKey(key);
     }
 
-    public RubyPackage getParent()
-    {
-        if (parent == null)
-        {
+    public RubyPackage getParent() {
+        if (parent == null) {
             parent = new RubyPackage(packageKey);
         }
         return parent;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return null;
     }
 
-    public Language getLanguage()
-    {
+    public Language getLanguage() {
         return Ruby.INSTANCE;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return filename;
     }
 
-    public String getLongName()
-    {
+    public String getLongName() {
         return longName;
     }
 
-    public String getScope()
-    {
+    public String getScope() {
         return Scopes.FILE;
     }
 
-    public String getQualifier()
-    {
+    public String getQualifier() {
         return Qualifiers.CLASS;
     }
 
-    public boolean matchFilePattern(String antPattern)
-    {
+    public boolean matchFilePattern(String antPattern) {
         String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
         WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
         String key = getKey();
         return matcher.match(key);
     }
 
-    public Collection<File> toFileCollection (List<InputFile> inputFiles){
-      Collection<File> listOfFiles = new ArrayList<File>();
-      for (InputFile afile : inputFiles) {
-          listOfFiles.add( afile.file());
-      }   
-      return listOfFiles;
+    public Collection<File> toFileCollection(List<InputFile> inputFiles) {
+        Collection<File> listOfFiles = new ArrayList<File>();
+        for (InputFile afile : inputFiles) {
+            listOfFiles.add(afile.file());
+        }
+        return listOfFiles;
     }
-    
+
     @Override
     public String toString() {
-      return "\nRubyFile [getParent()=" + getParent() + ", getLanguage()=" + getLanguage() + ", getName()=" + getName()
-          + ", getLongName()=" + getLongName() + ", getScope()=" + getScope() + ", getQualifier()=" + getQualifier()
-          + ", getKey()=" + getKey() + ", getId()=" + getId() + ", getPath()=" + getPath() + ", getEffectiveKey()="
-          + getEffectiveKey() + ", isExcluded()=" + isExcluded() + "]\n";
+        return "\nRubyFile [getParent()=" + getParent() + ", getLanguage()=" + getLanguage() + ", getName()=" + getName()
+                + ", getLongName()=" + getLongName() + ", getScope()=" + getScope() + ", getQualifier()=" + getQualifier()
+                + ", getKey()=" + getKey() + ", getId()=" + getId() + ", getPath()=" + getPath() + ", getEffectiveKey()="
+                + getEffectiveKey() + ", isExcluded()=" + isExcluded() + "]\n";
     }
 
 //    @Override

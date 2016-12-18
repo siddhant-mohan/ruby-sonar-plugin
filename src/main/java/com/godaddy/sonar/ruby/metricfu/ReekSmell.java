@@ -5,13 +5,13 @@ import org.sonar.api.rule.Severity;
 import java.util.*;
 
 public class ReekSmell {
-    
+
     private String file;
     private String method;
     private String message;
     private String type;
     private ArrayList<Integer> lines;
-    
+
     public static enum Smell {
         Attribute,
         BooleanParameter,
@@ -43,9 +43,9 @@ public class ReekSmell {
         UnusedParameters,
         UtilityFunction,
     }
-    
+
     private static final Map<Smell, String> keyToSeverityMap;
-    
+
     static {
         HashMap<Smell, String> mapKeyToSeverity = new HashMap<Smell, String>();
         mapKeyToSeverity.put(Smell.Attribute, Severity.MINOR);
@@ -79,72 +79,72 @@ public class ReekSmell {
         mapKeyToSeverity.put(Smell.UtilityFunction, Severity.MAJOR);
         keyToSeverityMap = Collections.unmodifiableMap(mapKeyToSeverity);
     }
-    
+
     public ReekSmell(String file, String method, String message, String type) {
         this.file = file;
         this.method = method;
         this.message = message;
         this.type = type;
     }
-    
+
     public ReekSmell() {
     }
-    
+
     public String getFile() {
         return file;
     }
-    
+
     public void setFile(String file) {
         this.file = file;
     }
-    
+
     public String getMethod() {
         return method;
     }
-    
+
     public void setMethod(String method) {
         this.method = method;
     }
-    
+
     public String getMessage() {
         return message;
     }
-    
+
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public String getType() {
         return type;
     }
-    
+
     public void setType(String type) {
         this.type = type;
     }
-    
+
     public List<Integer> getLines() {
         return lines;
     }
-    
+
     public void addLine(int line) {
         if (this.lines == null) {
             this.lines = new ArrayList<>();
         }
         this.lines.add(line);
     }
-    
+
     @Override
     public String toString() {
         return "file: " + file + " methods: " + method + " message: " + message + " type: " + type;
     }
-    
+
     public static String toSeverity(Smell smell) {
         if (keyToSeverityMap.containsKey(smell)) {
             return keyToSeverityMap.get(smell);
         }
         return Severity.BLOCKER; // Make sure we catch this case.
     }
-    
+
     public static String toSeverity(String smell) {
         try {
             return toSeverity(Smell.valueOf(smell));

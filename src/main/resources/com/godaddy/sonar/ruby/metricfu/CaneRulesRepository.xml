@@ -1,62 +1,62 @@
 <rules>
-  <rule>
-    <key>ComplexityViolation</key>
-    <priority>MAJOR</priority>
-    <name><![CDATA[ABC Complexity Exceeds Threshold]]></name>
-    <description>
-      <![CDATA[
+    <rule>
+        <key>ComplexityViolation</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[ABC Complexity Exceeds Threshold]]></name>
+        <description>
+            <![CDATA[
         <p>
           Methods exceeded maximum allowed ABC complexity.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LineStyleLengthViolation</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Line Length Exceeds Threshold]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LineStyleLengthViolation</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Line Length Exceeds Threshold]]></name>
+        <description>
+            <![CDATA[
         <p>
           The line length exceeds the specified threshold.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LineStyleTabsViolation</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Line Contains Hard Tabs]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LineStyleTabsViolation</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Line Contains Hard Tabs]]></name>
+        <description>
+            <![CDATA[
         <p>
           The line contains hard tabs.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>LineStyleWhitespaceViolation</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Line Contains Trailing Whitespace]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>LineStyleWhitespaceViolation</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Line Contains Trailing Whitespace]]></name>
+        <description>
+            <![CDATA[
         <p>
           The line contains trailing whitespace.
         </p>
       ]]>
-    </description>
-  </rule>
-  <rule>
-    <key>CommentViolation</key>
-    <priority>MINOR</priority>
-    <name><![CDATA[Class Definition Requires Explanatory Comment]]></name>
-    <description>
-      <![CDATA[
+        </description>
+    </rule>
+    <rule>
+        <key>CommentViolation</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Class Definition Requires Explanatory Comment]]></name>
+        <description>
+            <![CDATA[
         <p>
           Class definitions require explanatory comments on preceding line.
         </p>
       ]]>
-    </description>
-  </rule>
+        </description>
+    </rule>
 </rules>

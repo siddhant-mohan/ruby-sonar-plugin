@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class RubyPluginTest {
-    
+
     @Test
     public void testGetExtensions() {
         // FIXME add back code duplication metrics once it's fixed

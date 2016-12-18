@@ -7,11 +7,11 @@ import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 public class ReekRulesDefinition implements RulesDefinition {
     private final RulesDefinitionXmlLoader xmlLoader;
-    
+
     public ReekRulesDefinition(RulesDefinitionXmlLoader xmlLoader) {
         this.xmlLoader = xmlLoader;
     }
-    
+
     @Override
     public void define(Context context) {
         NewRepository repository = context.createRepository(RubyPlugin.KEY_REPOSITORY_REEK, Ruby.KEY).setName(RubyPlugin.NAME_REPOSITORY_REEK);

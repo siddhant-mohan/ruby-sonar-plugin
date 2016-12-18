@@ -1,18 +1,16 @@
 package com.godaddy.sonar.ruby.core.profiles;
 
-import static org.junit.Assert.*;
-
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
-public class SonarWayProfileTest
-{
+import static org.junit.Assert.assertNotNull;
+
+public class SonarWayProfileTest {
     private IMocksControl mocksControl;
     private XMLProfileParser parser;
     private RuleFinder ruleFinder;
@@ -20,8 +18,7 @@ public class SonarWayProfileTest
     private ValidationMessages messages;
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         mocksControl = EasyMock.createControl();
         ruleFinder = mocksControl.createMock(RuleFinder.class);
         parser = new XMLProfileParser(ruleFinder);
@@ -31,18 +28,16 @@ public class SonarWayProfileTest
     }
 
     @Test
-    public void testConstructor()
-    {
+    public void testConstructor() {
         assertNotNull(profile);
     }
-    
+
     @Test
-    public void testCreateProfile()
-    {
+    public void testCreateProfile() {
 //       RulesProfile rulesProfile = profile.createProfile(messages);
 //       assertNotNull(rulesProfile);
 //       assertEquals("Sonar Way", rulesProfile.getName());
 //       assertEquals("ruby", rulesProfile.getLanguage());
     }
-   
+
 }

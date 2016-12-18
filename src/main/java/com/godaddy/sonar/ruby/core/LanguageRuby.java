@@ -1,20 +1,19 @@
 package com.godaddy.sonar.ruby.core;
 
-import org.sonar.api.resources.AbstractLanguage;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.resources.AbstractLanguage;
 
 /**
  * Ruby language implementation
- *
  */
 public class LanguageRuby extends AbstractLanguage {
 
-  public static final LanguageRuby INSTANCE = new LanguageRuby("ruby");
+    public static final LanguageRuby INSTANCE = new LanguageRuby("ruby");
 
     public LanguageRuby(String key) {
-    super(key);
-  }
+        super(key);
+    }
 
 
     /**
@@ -41,7 +40,7 @@ public class LanguageRuby extends AbstractLanguage {
      * Default constructor
      */
     public LanguageRuby() {
-      super(KEY, NAME);
+        super(KEY, NAME);
     }
 
     /**
@@ -50,12 +49,12 @@ public class LanguageRuby extends AbstractLanguage {
      * @see AbstractLanguage#getFileSuffixes()
      */
     public String[] getFileSuffixes() {
-      return SUFFIXES;
+        return SUFFIXES;
     }
 
     public static boolean isRubyFile(java.io.File file) {
-      String suffix = "." + StringUtils.lowerCase(StringUtils.substringAfterLast(file.getName(), "."));
-      return ArrayUtils.contains(SUFFIXES, suffix);
+        String suffix = "." + StringUtils.lowerCase(StringUtils.substringAfterLast(file.getName(), "."));
+        return ArrayUtils.contains(SUFFIXES, suffix);
     }
-    
+
 }
