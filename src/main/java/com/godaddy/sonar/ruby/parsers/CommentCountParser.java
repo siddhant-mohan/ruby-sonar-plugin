@@ -3,18 +3,19 @@ package com.godaddy.sonar.ruby.parsers;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import java.io.File;
 import java.io.IOException;
 
 public final class CommentCountParser {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CommentCountParser.class);
-    
-    private CommentCountParser() {}
-    
+    private static final Logger LOG = Loggers.get(CommentCountParser.class);
+
+    private CommentCountParser() {
+    }
+
     public static int countLinesOfComment(File file) {
         int numComments = 0;
         LineIterator iterator = null;

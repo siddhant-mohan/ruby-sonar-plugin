@@ -1,0 +1,158 @@
+<rules>
+    <rule>
+        <key>AssignmentInConditionalCheck</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Assignment In Conditional Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check for an assignment inside a conditional. It's probably a mistaken equality comparison.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>CaseMissingElseCheck</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Case Missing Else Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that case statements have an else statement so that all cases are covered.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ClassLineCountCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Class Line Count Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the number of lines in a class is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ClassNameCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Class Name Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that class names match convention.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>CyclomaticComplexityBlockCheck</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Cyclomatic Complexity Block Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the cyclomatic complexity of all blocks is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>CyclomaticComplexityMethodCheck</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Cyclomatic Complexity Method Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the cyclomatic complexity of all methods is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>EmptyRescueBodyCheck</key>
+        <priority>MAJOR</priority>
+        <name><![CDATA[Empty Rescue Body Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that there are no empty rescue blocks.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ForLoopCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[For Loop Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that for loops aren't used (Use Enumerable.each instead)
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>MethodLineCountCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Method Line Count Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the number of lines in a method is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>MethodNameCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Method Name Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that method names match convention.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ModuleLineCountCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Module Line Count Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the number of lines in a module is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ModuleNameCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Module Name Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that module names match convention.
+        </p>
+      ]]>
+        </description>
+    </rule>
+    <rule>
+        <key>ParameterNumberCheck</key>
+        <priority>MINOR</priority>
+        <name><![CDATA[Parameter Number Check]]></name>
+        <description>
+            <![CDATA[
+        <p>
+          Check that the number of parameters on a method is below the threshold.
+        </p>
+      ]]>
+        </description>
+    </rule>
+</rules>

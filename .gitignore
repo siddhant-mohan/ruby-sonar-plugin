@@ -5,4 +5,5 @@ target/
 META-INF/
 bin/
 build.properties
-
+sonar-ruby-plugin.iml
+.idea
