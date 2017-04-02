@@ -1,8 +1,0 @@
-exclude_paths:
-  - "**/test/"
-  - "**.yml"
-  - "**.yaml"
-  - "**.rb"
-  - "**.sh"
-  - "src/main/resources"
-

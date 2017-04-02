@@ -1,4 +1,4 @@
-SonarQube Ruby Plugin [![Build Status](https://travis-ci.org/shakedlokits/ruby-sonar-plugin.svg?branch=master)](https://travis-ci.org/shakedlokits/ruby-sonar-plugin) [![Coverage Status](https://coveralls.io/repos/github/shakedlokits/ruby-sonar-plugin/badge.svg?branch=master)](https://coveralls.io/github/shakedlokits/ruby-sonar-plugin?branch=master) [![Code Climate](https://codeclimate.com/github/shakedlokits/ruby-sonar-plugin/badges/gpa.svg)](https://codeclimate.com/github/shakedlokits/ruby-sonar-plugin)
+SonarQube Ruby Plugin [![Build Status](https://travis-ci.org/shakedlokits/ruby-sonar-plugin.svg?branch=master)](https://travis-ci.org/shakedlokits/ruby-sonar-plugin) [![Coverage Status](https://coveralls.io/repos/github/shakedlokits/ruby-sonar-plugin/badge.svg?branch=master)](https://coveralls.io/github/shakedlokits/ruby-sonar-plugin?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b42dca389f624c4686b70bbccfefb25e)](https://www.codacy.com/app/shaked-lokits/ruby-sonar-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shakedlokits/ruby-sonar-plugin&amp;utm_campaign=Badge_Grade)  
 =================
 
 ## Description
