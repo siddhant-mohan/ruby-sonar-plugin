@@ -24,3 +24,7 @@ before_script:
 script:
   - mvn test
   - ./run_test.sh
+
+# analyze code coverage
+after_success:
+  - mvn clean test jacoco:report coveralls:report
