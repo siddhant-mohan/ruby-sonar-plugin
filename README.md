@@ -1,4 +1,4 @@
-SonarQube Ruby Plugin [![Build Status](https://travis-ci.org/shakedlokits/ruby-sonar-plugin.svg?branch=master)](https://travis-ci.org/shakedlokits/ruby-sonar-plugin) [![Coverage Status](https://coveralls.io/repos/github/shakedlokits/ruby-sonar-plugin/badge.svg?branch=master)](https://coveralls.io/github/shakedlokits/ruby-sonar-plugin?branch=master)
+SonarQube Ruby Plugin [![Build Status](https://travis-ci.org/shakedlokits/ruby-sonar-plugin.svg?branch=master)](https://travis-ci.org/shakedlokits/ruby-sonar-plugin) [![Coverage Status](https://coveralls.io/repos/github/shakedlokits/ruby-sonar-plugin/badge.svg?branch=master)](https://coveralls.io/github/shakedlokits/ruby-sonar-plugin?branch=master) [![Code Climate](https://codeclimate.com/github/shakedlokits/ruby-sonar-plugin/badges/gpa.svg)](https://codeclimate.com/github/shakedlokits/ruby-sonar-plugin)
 =================
 
 ## Description
