@@ -4,6 +4,7 @@ import com.godaddy.sonar.ruby.core.Ruby;
 import com.godaddy.sonar.ruby.core.RubySourceCodeColorizer;
 import com.godaddy.sonar.ruby.core.profiles.SonarWayProfile;
 import com.godaddy.sonar.ruby.metricfu.*;
+import com.godaddy.sonar.ruby.duplications.RubyCPDMapping;
 import com.godaddy.sonar.ruby.simplecovrcov.DefaultCoverageSettings;
 import com.godaddy.sonar.ruby.simplecovrcov.CoverageReportFileAnalyzerImpl;
 import com.godaddy.sonar.ruby.simplecovrcov.SimpleCovRcovSensor;
@@ -50,7 +51,7 @@ public final class RubyPlugin extends SonarPlugin {
         extensions.add(RubySourceCodeColorizer.class);
         extensions.add(RubySensor.class);
         extensions.add(MetricfuComplexitySensor.class);
-        // extensions.add(MetricfuDuplicationSensor.class);
+        extensions.add(MetricfuDuplicationSensor.class);
         extensions.add(MetricfuIssueSensor.class);
         extensions.add(CaneRulesDefinition.class);
         extensions.add(ReekRulesDefinition.class);
