@@ -124,6 +124,7 @@ public class MetricfuComplexitySensor implements Sensor {
 
         // add the summed file complexity to file distribution metrics
         LOG.debug("SETTING COMPLEXITY METRICS, fileComplexity = " + fileTotalComplexity);
+        // LOG.debug("Ritesh" + inputFile.file().toString());
         fileDistribution.add(fileTotalComplexity);
 
         // save the complexity measures to sensor data if there are existing methods
